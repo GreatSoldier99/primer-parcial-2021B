@@ -1,13 +1,15 @@
 package edu.uaslp.examen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookCollection {
     private String Name;
-    private ArrayList<Book> books;
+    private List<Book> books;
 
     public BookCollection(String name){
         Name=name;
+        books=new ArrayList<>();
     }
 
     public String getName(){
@@ -18,17 +20,15 @@ public class BookCollection {
         books.add(book);
     }
 
-    public ArrayList<Book> getBooks(){
+    public List<Book> getBooks(){
         return books;
     }
 
     public int getStars(){
-        int iCont=0, iCont2=0, iProm=0;
-        for (Book book : books) {
-            iCont+=book.getStars();
-            iCont2++;
-        }
-        iProm=iCont/iCont2;
-        return iProm;
+        int iProm=0;
+
+        for(Book book: books)
+            iProm+=book.getStars();
+        return iProm/books.size();
     }
 }

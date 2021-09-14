@@ -1,25 +1,24 @@
 package edu.uaslp.examen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookCollectionManager {
-    private ArrayList<BookCollection> collections;
+    private List<BookCollection> collections=new ArrayList<>();
 
     public BookCollection createCollection(String name){
         BookCollection bookC=new BookCollection(name);
+        collections.add(bookC);
         return bookC;
     }
 
     public BookCollection getCollectionByName(String name) {
-        boolean Band = false;
-        for (BookCollection collection : collections) {
-            if (collection.getName().equals(name)) {
-                return collection;
-                Band = true;
+        for (BookCollection bookC : collections) {
+            if (bookC.getName().equals(name)) {
+                return bookC;
             }
         }
-        if (Band == false)
-            return null;
+        return null;
     }
 
     public void deleteCollectionByName(String name){
@@ -27,19 +26,18 @@ public class BookCollectionManager {
     }
 
     public void addBookToCollection(String collectionName, Book book){
-        boolean Band=false;
-        BookCollection collectionNew;
-        for (BookCollection collection : collections) {
-            if (collection.getName().equals(collectionName)) {
-                collection.addBook(book);
-                Band = true;
-            }
-        }
-        if(Band==false)
-            collectionNew=createCollection(collectionName);
+        BookCollection bookC=getCollectionByName(collectionName);
+        if(bookC==null)
+            bookC=createCollection(collectionName);
+        bookC.addBook(book);
     }
 
-    public ArrayList<String> getCollectionNames(){
+    public List<String> getCollectionNames(){
+        List<String> collectionNames=new ArrayList<>();
 
+        for (BookCollection collection : collections) {
+            collectionNames.add(collection.getName());
+        }
+        return collectionNames;
     }
 }
